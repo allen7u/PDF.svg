@@ -1,0 +1,16 @@
+在浏览器中编辑HTML
+document.body.contentEditable=true 
+
+。
+\u3002
+
+；
+\uff1b
+
+？
+\uff1f
+
+匹配中文标点符号
+[\u3002\uff1b\uff0c\uff1a\u201c\u201d\uff08\uff09\u3001\uff1f\u300a\u300b] 
+该表达式可以识别出
+ 。 ； ， ： “ ”（ ） 、 ？ 《 》 这些标点符号。

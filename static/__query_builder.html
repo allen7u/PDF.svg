@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html dir="ltr" mozdisallowselectionprint moznomarginboxes>
+
+  <body tabindex="1" class="loadingInProgress">
+
+  <div id='textarea_div_parent' class=textarea_div_parent>
+
+    <div id='textarea_div' class=inline_block>
+
+      <textarea id='textarea1'> </textarea>
+      <button id='button1'> Submit </button>
+      <button id='button_pos_tag_2_new_line'> /x 2 /n </button>
+      <button id='button_pos_tag_2_ORed'>pos_tag_2_ORed</button>
+
+
+    </div>  
+
+    <div id='para_div' class=inline_block>
+
+      <label for="max_display_unit_draw_num" ><input id="max_display_unit_draw_num" type="text" >v1</label><!-- max_display_unit_draw_num -->
+      <label for="max_display_unit_display_num" ><input id="max_display_unit_display_num" type="text" >v2</label>
+
+      <label>--------------------------------</label>
+
+      <label for="wildcard" ><input id="wildcard" type="checkbox" checked='checked'>wildcard</label>
+      
+      <label><input id="quoted" type="checkbox" checked='checked'>quoted</label>
+      <label for="AND" ><input id="AND" type="checkbox" >AND</label>
+      <label for="space" ><input id="space" type="checkbox" checked='checked'>SPACE</label>
+
+      <label>--------------------------------</label>
+
+    </div>    
+
+    <div id='textarea_div_2' class=inline_block>
+
+      <textarea id='textarea2'> </textarea>
+      <button id='button2'> Copy </button>
+
+    </div>  
+
+  </div>
+  
+</body>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="google" content="notranslate">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Query Builder</title>
+
+    <link rel="stylesheet" href="__query_builder.css">
+
+    <!-- This snippet is used in production (included from viewer.html) -->
+    <link rel="resource" type="application/l10n" href="locale/locale.properties">
+    <script src="build/jquery-3.3.1.min.js"></script>
+    <script>
+
+    $('#button1').on('click',convert)
+
+    $('#button2').on('click',copy)
+
+    $('#button_pos_tag_2_new_line').on('click',pos_tag_2_new_line)
+
+    $('#button_pos_tag_2_ORed').on('click',pos_tag_2_ORed)
+
+
+    function pos_tag_2_ORed(){
+      var para = {}
+      $('input').each(function(){
+        if(this.type == 'checkbox'){
+          para[this.id] = this.checked
+        }
+      })
+
+      var input_text = $('#textarea1').val()
+      var input_text = input_text.replace(/[^\u4e00-\u9fa5]+/g,'HOLDER')
+      var input_text_list = input_text.split('HOLDER')
+      var output_text = input_text_list.join(' OR ')
+      $('#textarea2').val(output_text)
+      $('#textarea2').select()
+      document.execCommand('copy')
+    }
+
+    function pos_tag_2_new_line(){
+      var para = {}
+      $('input').each(function(){
+        if(this.type == 'checkbox'){
+          para[this.id] = this.checked
+        }
+      })
+
+      var input_text = $('#textarea1').val()
+      var input_text = input_text.replace(/[^\u4e00-\u9fa5]+/g,'HOLDER')
+      var input_text_list = input_text.split('HOLDER')
+      var output_text = input_text_list.join('\n')
+      $('#textarea2').val(output_text)
+      $('#textarea2').select()
+      document.execCommand('copy')
+    }
+    
+
+    function copy() {
+      // console.log('copy')
+      // console.log($('#textarea2'))
+      $('#textarea2').select()
+      document.execCommand('copy')
+    }
+
+    function convert(){
+      //para get
+      var para = {}
+      $('input').each(function(){
+        if(this.type == 'checkbox'){
+          para[this.id] = this.checked
+        }
+      })
+
+      var input_text = $('#textarea1').val()
+      var t1 = input_text.split('\n')
+      var t2 = []
+      for(var t of t1){
+        console.log(t)
+        if(t.match(/[^ ]/) == null){
+          console.log(t)
+          continue
+        }
+        console.log(t.match(/\w\b/g))
+        if( para.wildcard && para.quoted){      
+          t = t.replace(/(\w)\b/g,'$1*')
+          .replace(/^ *| *$/g,'"')  
+        }else if( para.wildcard && !para.quoted ){
+          t = t.replace(/(\w)\b/g,'$1*')
+        }else if( para.quoted ){
+          t = t.replace(/^ *| *$/g,'"')  
+        }else{
+          // t = t.replace(/^ *| *$/g,'"')  
+        }        
+        console.log(t)
+        t = t.replace(/\/[a-z]+/g,'')
+        t2.push(t)
+      }
+      console.log(t2)
+      if( para.AND ){
+        var output = t2.join(' AND ')
+      }else if( para.space ){
+        var output = t2.join('   ')
+      }else{
+        var output = t2.join(' OR ')
+      }
+      
+      $('#textarea2').val(output)
+      
+    }
+
+    </script>
+</head>
+    
+</html>
+

@@ -1,0 +1,33 @@
+<html>
+
+<head>
+
+<script src="svg.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.13/svg.min.js"></script> -->
+
+<script>
+$(document).ready(function(){
+
+
+var draw = SVG('drawing').size(300, 300)
+var rect = draw.rect(100, 100).attr({ fill: '#f06' })
+
+var line = draw.line(0, 0, 100, 150).stroke({ width: 1 }).plot(50, 30, 100, 150)
+
+var polyline = draw.polyline('0,0 100,50 50,100').fill('none').stroke({ width: 1 })
+  
+});
+</script>
+
+</head>
+
+
+<body>
+
+<div id="drawing"></div>
+<p>Move the mouse pointer over this paragraph.</p>
+
+</body>
+</html>
+

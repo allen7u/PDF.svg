@@ -1,0 +1,2 @@
+suppress dense region color by fake = true property, future work £º deal with unit with no dense region in draw_zoom section.
+

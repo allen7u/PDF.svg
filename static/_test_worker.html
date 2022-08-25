@@ -1,0 +1,55 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+var worker = new Worker('worker.js')
+
+worker.onmessage = function(e){
+    console.log(e.data)
+}
+
+worker.postMessage(1)
+
+
+// worker.postMessage({
+//     type: "start",
+//     value: 12345
+// });
+
+
+//5.当myWorker异常时的时候，会触发onerror事件    
+        // myWorker.onerror = function() {
+        //      console.log('There is an error with your worker!');
+        // }
+
+
+// worker.addEventListener('error', function (e) {
+//   console.log('MAIN: ', 'ERROR', e);
+//   console.log('filename:' + e.filename + '-message:' + e.message + '-lineno:' + e.lineno);
+// });
+
+
+// worker.terminate();
+</script>

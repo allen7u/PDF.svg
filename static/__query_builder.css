@@ -1,0 +1,44 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body{
+  background: rgb(246,246,246);
+}
+
+div.textarea_div_parent{
+  background: rgb(246,246,246);
+  padding: 300px 0px 0px 300px
+}
+
+div.inline_block{
+  display: inline-block;
+  width: 30%
+}
+label,button{
+  display: block;
+}
+textarea{
+  height: 400px;
+  width: 400px;
+}

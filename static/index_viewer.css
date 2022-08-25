@@ -1,0 +1,334 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.initial_options {
+  position:relative;
+  top:130px;
+  left:0px;
+  width:100%;
+  height: 1200px;
+  background-color:rgb(246,246,246);
+  padding: 10px;
+
+}
+
+
+#sliding_param_div label {
+  max-width: 490px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#sliding_param_div label:hover {
+  overflow: visible;
+}
+
+
+button {
+  margin: 3px 2px;
+}
+
+#head_container {
+  padding: 120px 0px 20px 0px
+}
+
+#div_initial_display {
+  position: fixed;
+  top:0px;
+  left:10px;
+}
+
+#outerContainer {
+  z-index: 4;
+  position: fixed;
+  top:0px;
+}
+
+#grid_displayer {
+  width: 80%;
+  display: grid;
+  padding: 25px 120px;
+  /* grid-template-columns: repeat(12, 1fr); */
+  grid-template-columns: repeat(5, 1fr);
+  justify-content: start;
+  align-items: start;
+  grid-gap: 10px;
+}
+
+#grid_displayer div {
+  font-size: 20px;
+  padding: 10px 10px;
+}
+
+/* Style the links inside the sidenav */
+#sliding_param_div textarea {
+  height: 150px
+}
+
+#sliding_param_div {
+  /*white-space: pre;*/
+
+  z-index: 5;
+  position: fixed; /* Position them relative to the browser window */
+  top: 0px;
+  bottom:0px;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  left: -450px; /* Position them outside of the screen */
+  transition: 0.1s; /* Add transition on hover */
+  padding: 15px 15px 15px 15px;  
+  width: 425px; /* Set a specific width */
+  height: 100%;
+  text-decoration: none; /* Remove underline */
+  /*font-size: 20px;  Increase font size */
+  /*color: white;  White text color */
+  border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
+  /*background: rgb(246,246,246)*/
+  background: rgb(240,240,240)
+}
+
+
+#sliding_param_div:hover {
+  left: 0; /* On mouse-over, make the elements appear as they should */
+}
+
+textarea#built_in_kw_textarea {
+  /* position: absolute; */
+  /* left: 2%; */
+  /* top: 15%; */
+}
+
+div.per_enrichment_type_div {
+  margin: 10px 0px 10px 0px;
+}
+
+div.enriched_word_div {
+  display: inline-block;
+}
+
+div.enrichment_type {
+  display: inline-block;
+  margin-left: 50px;
+  width: 100px
+}
+
+span.enriched_word{
+  /*margin-right: 10px;*/
+  margin: 10px;
+}
+
+div.mutual_kws  {
+  margin-left: 20px;
+}
+
+div.individual_summary_term  {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+p.individual_summary_term  {
+  display: inline-block;
+}
+
+span.individual_summary_term  {
+  font-size: 3px;
+  margin-left: 5px;
+}
+
+#chart div {
+  display: inline-block;
+  background: #4285F4;
+  width: 1px;
+  margin-right: 0px;
+}
+/*#chart div {
+  display: inline-block;
+  background: #4285F4;
+  width: 20px;
+  margin-right: 3px;
+}*/
+
+.hidden {
+  display: none
+}
+.top_textarea_div_parent #para_div{
+  margin: 5px 10px;  
+  display:inline-block;
+}
+.top_textarea_div_parent #textarea_div{
+  display:inline-block;  
+}
+#textarea{
+  padding: 0px 0px;
+  margin: 5px 0px;  
+}
+#sliding_param_div button{
+  display:block
+}
+#textarea_div_parent.top_textarea_div_parent{
+  /*padding: 15px 15px;*/
+  display:inline-block;
+  background:rgb(246,246,246);
+  width:30%; 
+  padding:0px 0px 0px 0px;
+  vertical-align: top;  
+}
+#textarea_div_parent.left_textarea_div_parent{
+  padding: 100px 15px 15px 15px;
+  /*display: none*/
+}
+body{
+  background:rgb(246,246,246)
+}
+text.inline_kw{
+  background:rgb(246,246,246)
+}
+p.doc_items{
+  word-wrap : break-word 
+}
+div#doc_title{
+  /*margin-top: 100px;*/
+  font-size: 30px;
+  /*padding:120px 0px 20px 0px;*/
+  text-align: center
+}
+div.hidding_summary{
+  display: none!important
+}
+div.hidden_kw_div {
+  display: none!important
+}
+.unhidden_kw_div circle{
+  /*fill:rgb(230,240,230)!important*/
+  fill:rgb(106,198,46)!important
+}
+circle.draw_kw_from_summary{
+  /*fill-opacity:'0.1'*/
+  /*fill:rgba(106,198,46,0.1)!important*/
+  stroke:rgb(166,226,46);
+  stroke-width:2px;
+}
+.unhidden_kw_div rect#bg1{
+  fill:rgb(235,240,235)!important
+}
+
+#drop_zone {
+  /*z-index: 10;*/
+  position:absolute;
+  left:10%;
+  top:10%;
+  border: 1px solid;
+  width:  80%;
+  height: 10%;
+}
+
+form#checkboxes{
+  /* position:absolute; */
+  /* left:30%; */
+  /* top:30%; */
+}
+form#checkboxes_2{
+  /* position:absolute; */
+  /* left:50%; */
+  /* top:30%; */
+}
+label{
+    display:block;
+}
+input[type=checkbox]{
+  vertical-align: middle
+}
+input[type=range]{
+  /*width:1000px*/
+}
+div#input{
+    /* position:absolute; */
+    /* left:30%; */
+    /* top:15%; */
+}
+span.index {
+            color:#FF4500;
+            /*text-decoration:underline;*/
+}
+span.sent_idx {
+  font-size:medium;
+  color:green;
+  /*opacity:0.5;*/
+}
+/*span.view_df{*/
+    /*color:green;*/
+    /*font-weight: bold;*/
+/*}*/
+p.sent {
+    font-size:0.5em;
+    margin-top:0.5em;
+    text-indent: 1em;
+}
+div.append {
+    font-size:0.25em;
+    margin-top:0.5em;
+    text-indent: 2em;
+    color:gray;
+}
+p.append {
+    display: inline-block;
+    font-size:0.25em;
+    margin-top:0.5em;
+    text-indent: 2em;
+    color:gray;
+}
+
+#frame {
+opacity:0.1;
+stroke:grey;
+}
+#bg0 {
+fill:rgb(246,246,246);
+opacity:1;
+}
+
+#view {
+  font-size:medium;
+  background:rgba(246,246,246,1);
+  overflow: scroll;
+  position:'absolute';
+  border:'1px solid green';
+}
+
+#frame {stroke-width:5;}
+
+#the_div {
+-webkit-column-count:3;
+column-count:3;
+}
+.invi {display:none;}

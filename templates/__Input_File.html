@@ -1,0 +1,365 @@
+<head>
+<link rel="stylesheet" href="index_viewer.css">
+<script src="build/jquery-3.3.1.min.js"></script>
+</head>
+
+<!-- <input type="text" name="enter" class="enter" value="" id="lolz"/>
+<input type="button" value="click" onclick="kk();"/> -->
+
+
+
+<div id="drop_zone" >
+  <p>Drag one or more files to this Drop Zone ...</p>
+</div>
+
+<textarea id = 'built_in_kw_textarea' name="" cols="10" rows="40"></textarea>
+
+<div id='input'>
+<textarea id = 'custom_kw_textarea' name="Text1" cols="40" rows="5"></textarea>
+<label for="input_kw" ><input type="file" id="input_kw" accept=".txt">请选择关键词文件</label>
+<label for="input_pdf" ><input type="file" id="input_pdf" accept=".pdf">请选择PDF文件</label>
+</div>
+
+    <form id='checkboxes'>
+
+    <label for="use_kw" ><input id="use_kw" type="checkbox" checked="checked">use_kw</label>
+
+    <label for="use_kw_pair" ><input id="use_kw_pair" type="checkbox" >use_kw_pair</label>
+
+    <label for="use_n_gram" ><input id="use_n_gram" type="checkbox" checked="checked">use_n_gram</label>
+
+    <label for="positive_as_kw" ><input id="positive_as_kw" type="checkbox"/>positive_as_kw</label>
+
+    <label for="negative_as_kw" ><input id="negative_as_kw" type="checkbox"/>negative_as_kw</label>
+
+    <label for="verb_as_kw" ><input id="verb_as_kw" type="checkbox"/>verb_as_kw</label>
+
+    <label>----------------------------------------</label>
+
+    <input id="mutual_enrichment_calculation_input_phrase_number" type="text" value=10>
+    <label for="mutual_enrichment_calculation_input_phrase_number" >mutual_enrichment_calculation_input<br>_phrase_number</label>
+
+    <input id="also_search_nearby_sent_within_range" type="text" value=2>
+    <label for="also_search_nearby_sent_within_range" >also_search_nearby_sent_within_range</label>
+
+    <label>----------------------------------------</label>
+
+    <label for="do_clustering" ><input id="do_clustering" type="checkbox" checked='checked'>do_clustering</label>
+    <label for="do_mutual_enrich" ><input id="do_mutual_enrich" type="checkbox" checked='checked'>do_mutual_enrich</label>    
+    <label for="dense_block_spanned_sents_idx_off" ><input id="dense_block_spanned_sents_idx_off" type="checkbox">dense_block_spanned_sents_idx_off
+    <br>#remmended when do_clustering is off for long text</label>
+    <label for="mutual_enriched_only" ><input id="mutual_enriched_only" type="checkbox" checked='checked'>mutual_enriched_only</label>
+
+    <label>----------------------------------------</label>
+
+    <label for="kw_pair_cluster_wise" ><input id="kw_pair_cluster_wise" type="checkbox" checked="checked">kw_pair_cluster_wise</label>
+
+    <label for="no_summary" ><input id="no_summary" type="checkbox" checked="checked">no_summary</label>
+
+    <!-- <label for="kw_once" ><input id="kw_once" type="checkbox" >kw_once</label>
+    <label for="multiple_sort_round" ><input id="multiple_sort_round" type="checkbox"/>_multiple_sort_round</label>
+    <label for="include_non_dense_kw" ><input id="include_non_dense_kw" type="checkbox"/>__include_non_dense_kw</label>
+
+    <label for="every_kw_cluster" ><input id="every_kw_cluster" type="checkbox" >every_kw_cluster</label> -->
+
+    <label for="outline_only" ><input id="outline_only" type="checkbox"/>outline_only</label>
+
+    <label for="kw_min" ><input id="kw_min" type="text" value=3>kw_min</label>
+
+    <label for="n_gram_min" ><input id="n_gram_min" type="text" value=2>n_gram_min</label>
+
+    <label for="n_gram_max" ><input id="n_gram_max" type="text" value=70>n_gram_max</label>
+
+    <label for="reoccur_cutoff" ><input id="reoccur_cutoff" type="text" value=2>reoccur_cutoff</label>
+
+    <label for="max_n_of_n_gram_displayed" ><input id="max_n_of_n_gram_displayed" type="text" value=70>max_n_of_n_gram_displayed</label>
+
+    <label for="kw_num_cutoff_ratio" ><input id="kw_num_cutoff_ratio" type="text" value=1>kw_num_cutoff_ratio</label>
+
+    <label for="use_kw_num_cutoff_ratio" ><input id="use_kw_num_cutoff_ratio" type="checkbox" checked="checked">use_kw_num_cutoff_ratio</label>
+
+    <label for="kw_num_cutoff_value" ><input id="kw_num_cutoff_value" type="text" value=100>kw_num_cutoff_value</label>
+
+    <label for="use_kw_num_cutoff_value" ><input id="use_kw_num_cutoff_value" type="checkbox">use_kw_num_cutoff_value</label>
+
+    <label for="join_strbuf_by_space" ><input id="join_strbuf_by_space" type="checkbox" >join_strbuf_by_space</label>
+    
+    <label for="chinese_math_book" ><input id="chinese_math_book" type="checkbox" >chinese_math_book</label>
+
+    <label>----------------------------------------</label>
+
+    <label for="chinese_stopwords_disabled" ><input id="chinese_stopwords_disabled" type="checkbox" >chinese_stopwords_disabled</label>
+
+    <label>----------------------------------------</label>
+    <label for="start_page_num" ><input id="start_page_num" type="text">start_page_num</label>
+    <label for="end_page_num" ><input id="end_page_num" type="text">end_page_num</label>
+
+    </form>
+
+<form id='checkboxes_2'>
+
+<label for="max_display_unit_draw_num" ><input id="max_display_unit_draw_num" type="text" value=0>max_display_unit_draw_num</label>
+<label for="max_display_unit_display_num" ><input id="max_display_unit_display_num" type="text" value=0>max_display_unit_display_num</label>
+
+<label for="customized_min_dense_discard_cutoff" ><input id="customized_min_dense_discard_cutoff" type="text" value=2>customized_min_dense_discard_cutoff</label>
+<label for="customized_min_dense_show_cutoff" ><input id="customized_min_dense_show_cutoff" type="text" value=3>customized_min_dense_show_cutoff</label>
+
+<label for="use_div_draw_by_click" ><input id="use_div_draw_by_click" type="checkbox" >use_div_draw_by_click</label>
+<label for="filter_terms_with_min_dense_hit_cutoff" ><input id="filter_terms_with_min_dense_hit_cutoff" type="checkbox" checked='checked'>__filter_terms_with_min_dense_hit_cutoff ( only apply to div_draw_by_click )</label>
+<label for="only_require_unit_total_hits_above_calculated_min_dense_cutoff" ><input id="only_require_unit_total_hits_above_calculated_min_dense_cutoff" type="checkbox" checked='checked'>____only_require_unit_total_hits_above_calculated_min_dense_cutoff ( only apply to div_draw_by_click )</label>
+
+<label>----------------------------------------</label>
+
+<label for="hide_super_and_equal" ><input id="hide_super_and_equal" type="checkbox" checked="checked">hide_super_and_equal</label>
+<label for="hide_almost_supered" ><input id="hide_almost_supered" type="checkbox" checked="checked">hide_almost_supered</label>
+<label for="show_overlap_info" ><input id="show_overlap_info" type="checkbox" >show_overlap_info</label>
+
+<label>----------------------------------------</label>
+
+<label for="one_sent_per_page_for_non_dense_sent" ><input id="one_sent_per_page_for_non_dense_sent" type="checkbox" >one_sent_per_page_for_non_dense_sent</label>
+<label for="polyline_only" ><input id="polyline_only" type="checkbox" checked="checked">polyline_only</label>
+
+<label>----------------------------------------</label>
+
+<label for="also_search_nearby_sent_within_range" ><input id="also_search_nearby_sent_within_range" type="text" value=2>also_search_nearby_sent_within_range</label>
+
+<label>----------------------------------------</label>
+
+<label for="DF" >  <input id="DF"   type="checkbox"                  >DF  <input id="DF_r"   type="checkbox"                  ></label>
+<label for="1G_L" ><input id="1G_L" type="checkbox" checked="checked">1G-L<input id="1G_L_r" type="checkbox"                  ></label>
+<label for="NG_L" ><input id="NG_L" type="checkbox" checked="checked">NG-L<input id="NG_L_r" type="checkbox"                  ></label>
+<label for="NG_S" ><input id="NG_S" type="checkbox" checked="checked">NG-S<input id="NG_S_r" type="checkbox"                  ></label>
+<label for="NG_G" ><input id="NG_G" type="checkbox" checked="checked">NG-G<input id="NG_G_r" type="checkbox"                  ></label>
+<label for="BC_L" ><input id="BC_L" type="checkbox"                  >BC-L<input id="BC_L_r" type="checkbox"                  ></label>
+<label for="BC_S" ><input id="BC_S" type="checkbox"                  >BC-S<input id="BC_S_r" type="checkbox"                  ></label>
+<label for="BC_G" ><input id="BC_G" type="checkbox"                  >BC-G<input id="BC_G_r" type="checkbox"                  ></label>
+
+<label>----------------------------------------</label>
+
+<label for="use_set_interval" ><input id="use_set_interval" type="checkbox" checked="checked">use_set_interval</label>
+
+<label for="start_sent_idx" ><input id="start_sent_idx" type="text" >start_sent_idx</label>
+
+<label for="end_sent_idx" ><input id="end_sent_idx" type="text" >end_sent_idx</label>
+
+</form>
+<!-- <img id="img"> id='for_kw_once' value="what"-->
+
+<script>
+
+var kw_list
+var url_from_input_file = ''
+var pdf_url = ''
+// var pdf_file_name
+var input_text = $('#lolz').value
+
+function dropHandler(ev) {
+  console.log('File(s) dropped');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+  // var file = ev.dataTransfer.files[0]
+  // pdf_file_name = file.name
+  // pdf_url = URL.createObjectURL(file)
+
+  // build_and_send_para_json()  
+
+  var files = ev.dataTransfer.files
+    console.log('files',files)
+    for(var i = 0; i<files.length; i++){
+        console.log('file name is',files[i].name)
+        var pdf_file_name = files[i].name
+        pdf_url = URL.createObjectURL(files[i])
+
+        build_and_send_para_json(pdf_file_name)
+    }
+}
+
+function dragOverHandler(ev) {
+  // console.log('File(s) in drop zone'); 
+  ev.preventDefault();
+  // ev.stopPropagation()
+  // alert('over document')
+}
+function dragEnterHandler(e){
+    e.preventDefault()
+    // e.stopPropagation()
+    // alert('enter document')
+    // $('#drop_zone').css('background','#eee')
+}
+
+// document.addEventListener('dragenter',dragEnterHandler,false)
+// document.addEventListener('dragover',dragOverHandler,false)
+
+document.getElementById('drop_zone').addEventListener('dragenter',dragEnterHandler)
+document.getElementById('drop_zone').addEventListener('dragover',dragOverHandler)
+document.getElementById('drop_zone').addEventListener('drop',dropHandler)
+
+document.getElementById('input_kw').addEventListener('change', input_file_to_url, false);
+
+function input_file_to_url (evt) {
+   var files = evt.target.files;
+   var file = files[0];           
+   url_from_input_file = URL.createObjectURL(file)
+   console.log('url_from_input_file',url_from_input_file)
+   // read_text_file_from_url(url_from_input_file)
+}
+
+document.getElementById('input_pdf').addEventListener('change',function(){
+    // let file = this.files[0];
+    // console.log('file is',file)
+    // pdf_file_name = file.name
+    // console.log('file name is',file.name)
+    // pdf_url = URL.createObjectURL(file)
+
+    // build_and_send_para_json()
+
+    var files = this.files
+    console.log('files',files)
+    for(var i = 0; i<files.length; i++){
+        console.log('file name is',files[i].name)
+        var pdf_file_name = files[i].name
+        pdf_url = URL.createObjectURL(files[i].name)
+
+        build_and_send_para_json(pdf_file_name)
+    }
+})
+
+
+function build_and_send_para_json(pdf_file_name){
+    var para_dict = {}
+    $('input').each(function(){
+          if(this.type == 'text'){
+              para_dict[ this.id ] = this.value
+              console.log(para_dict)
+          }else if(this.type == 'checkbox'){
+              para_dict[ this.id ] = this.checked
+              console.log(para_dict)
+          }  
+        })
+    para_dict.pdf_url = pdf_url
+    para_dict.pdf_file_name = encodeURI(pdf_file_name)
+    para_dict.custom_kw_url = url_from_input_file
+    para_dict.custom_kw_textarea = document.getElementById('custom_kw_textarea').value
+    para_dict.built_in_kw_textarea = document.getElementById('built_in_kw_textarea').value
+    console.log('para_dict',para_dict)
+    var options_json = JSON.stringify( para_dict )
+    var options_json = encodeURI(JSON.stringify(options_json),"utf-8")
+    // var newWin = window.open('viewer_URL.html?'+pdf_url+'&'+url_from_input_file+'&'+'kw_once'+'&'+options_json,'_blank')
+    // console.log("'viewer_URL.html?'+options_json",'viewer_URL.html?'+options_json)
+    var newWin = window.open('viewer_URL.html?'+options_json,'_blank')
+    // open the window
+    newWin.addEventListener("load", function() {
+        newWin.document.title = pdf_file_name;
+    });
+    return
+
+    // var para_json = {pdf_url:pdf_url,
+    //                 custom_kw_textarea:document.getElementById('custom_kw_textarea').value,
+    //                 custom_kw_url:url_from_input_file,
+    //                 kw_pair_cluster_wise:document.getElementById('kw_pair_cluster_wise').checked,
+    //                 no_summary:document.getElementById('no_summary').checked,
+    //                 include_non_dense_kw:document.getElementById('include_non_dense_kw').checked,
+    //                 multiple_sort_round:document.getElementById('multiple_sort_round').checked,
+    //                 kw_once:document.getElementById('kw_once').checked,
+    //                 every_kw_cluster:document.getElementById('every_kw_cluster').checked,
+    //                 positive_as_kw:document.getElementById('positive_as_kw').checked,
+    //                 negative_as_kw:document.getElementById('negative_as_kw').checked,
+    //                 verb_as_kw:document.getElementById('verb_as_kw').checked,
+    //                 outline_only:document.getElementById('outline_only').checked,
+    //                 n_gram_min:document.getElementById('n_gram_min').value,
+    //                 n_gram_max:document.getElementById('n_gram_max').value,
+    //                 reoccur_cutoff:document.getElementById('reoccur_cutoff').value,
+    //                 max_n_of_n_gram_displayed:document.getElementById('max_n_of_n_gram_displayed').value,
+    //                 kw_num_cutoff_ratio:document.getElementById('kw_num_cutoff_ratio').value,
+    //                 use_kw_num_cutoff_ratio:document.getElementById('use_kw_num_cutoff_ratio').checked,
+    //                 kw_num_cutoff_value:document.getElementById('kw_num_cutoff_value').value,
+    //                 use_kw_num_cutoff_value:document.getElementById('use_kw_num_cutoff_value').checked,
+    //                 join_strbuf_by_space:document.getElementById('join_strbuf_by_space').checked,
+    //                 max_display_unit_draw_num:document.getElementById('max_display_unit_draw_num').value,
+    //                 max_display_unit_display_num:document.getElementById('max_display_unit_display_num').value,
+    //                 customized_min_dense_discard_cutoff:document.getElementById('customized_min_dense_discard_cutoff').value,
+    //                 customized_min_dense_show_cutoff:document.getElementById('customized_min_dense_show_cutoff').value,                    
+    //                 use_div_draw_by_click:document.getElementById('use_div_draw_by_click').checked,
+    //                 only_require_unit_total_hits_above_calculated_min_dense_cutoff:document.getElementById('only_require_unit_total_hits_above_calculated_min_dense_cutoff').checked,   
+    //                 filter_terms_with_min_dense_hit_cutoff:document.getElementById('filter_terms_with_min_dense_hit_cutoff').checked,
+    //                 use_kw:document.getElementById('use_kw').checked,
+    //                 use_kw_pair:document.getElementById('use_kw_pair').checked,
+    //                 use_n_gram:document.getElementById('use_n_gram').checked,
+    //                 hide_super_and_equal:document.getElementById('hide_super_and_equal').checked,
+    //                 hide_almost_supered:document.getElementById('hide_almost_supered').checked,                    
+    //                 show_overlap_info:document.getElementById('show_overlap_info').checked,   
+    //                 one_sent_per_page_for_non_dense_sent:document.getElementById('one_sent_per_page_for_non_dense_sent').checked,
+    //                 polyline_only:document.getElementById('polyline_only').checked,
+
+    //                 DF:document.getElementById('DF').checked,
+    //                 NG_L:document.getElementById("NG_L").checked,
+    //                 NG_S:document.getElementById("NG_S").checked,
+    //                 NG_G:document.getElementById("NG_G").checked,
+    //                 BC_L:document.getElementById("BC_L").checked,
+    //                 BC_S:document.getElementById("BC_S").checked,
+    //                 BC_G:document.getElementById("BC_G").checked,
+    //                 DF_r:document.getElementById('DF_r').checked,
+    //                 NG_L_r:document.getElementById("NG_L_r").checked,
+    //                 NG_S_r:document.getElementById("NG_S_r").checked,
+    //                 NG_G_r:document.getElementById("NG_G_r").checked,
+    //                 BC_L_r:document.getElementById("BC_L_r").checked,
+    //                 BC_S_r:document.getElementById("BC_S_r").checked,
+    //                 BC_G_r:document.getElementById("BC_G_r").checked,
+    //                 use_set_interval:document.getElementById("use_set_interval").checked,
+    //                 start_sent_idx:document.getElementById('start_sent_idx').value,
+    //                 end_sent_idx:document.getElementById('end_sent_idx').value,
+    //                 pdf_file_name:encodeURI(pdf_file_name)
+    //                 }
+    // var options_json = JSON.stringify( para_json )
+    // // var newWin = window.open('viewer_URL.html?'+pdf_url+'&'+url_from_input_file+'&'+'kw_once'+'&'+options_json,'_blank')
+    // // console.log("'viewer_URL.html?'+options_json",'viewer_URL.html?'+options_json)
+    // var newWin = window.open('viewer_URL.html?'+options_json,'_blank')
+    // // open the window
+    // newWin.addEventListener("load", function() {
+    //     newWin.document.title = pdf_file_name;
+    // });
+}
+
+
+
+
+
+// window.open('viewer_URL.html?para1=monkey.pdf','newwindow')
+// console.log(afterUrl.split('=')[1])
+function read_text_file_from_input (evt) {//not needed now
+   var files = evt.target.files;
+   var file = files[0];           
+   var reader = new FileReader();
+   reader.onload = function(event) {
+     console.log('read_text_file',event.target.result);  
+     kw_list = event.target.result.split('\n')
+     console.log('read_text_file_list',kw_list);  
+   }
+   reader.readAsText(file)
+}
+
+function dropHandler_bak(ev) {//redundant
+  console.log('File(s) dropped');
+
+  // Prevent default behavior (Prevent file from being opened)
+  ev.preventDefault();
+
+  if (ev.dataTransfer.items) {
+    // Use DataTransferItemList interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.items.length; i++) {
+      // If dropped items aren't files, reject them
+      if (ev.dataTransfer.items[i].kind === 'file') {
+        var file = ev.dataTransfer.items[i].getAsFile();
+        console.log('... file[' + i + '].name = ' + file.name);
+      }
+    }
+  } else {
+    // Use DataTransfer interface to access the file(s)
+    for (var i = 0; i < ev.dataTransfer.files.length; i++) {
+      console.log('... file[' + i + '].name = ' + ev.dataTransfer.files[i].name);
+    }
+  }
+}
+</script>
+

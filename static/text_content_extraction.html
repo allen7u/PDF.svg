@@ -1,0 +1,50 @@
+<script src="jquery-3.3.1.min.js"></script>
+<script src="build/pdf.js"></script>
+<!-- <script src="default_url.js"></script> -->
+<script src="viewer.js"></script>
+
+
+<script>
+// var loading_task = PDFJS.getDocument('hachi.pdf')
+
+var doc;
+// var page;
+var pageContents = [];
+
+PDFJS.getDocument('hachi.pdf').then(function(d){
+  doc = d;
+  var numPages = doc.numPages;
+  console.log('pdf loaded')
+
+  for (let n=0; n<numPages; n++){
+    doc.getPage(n+1).then(function(p){
+    // console.log('page loaded')
+    // page = p;
+    p.getTextContent({normalizeWhitespace:true}).then(function(t){
+      var textItems = t.items;
+      var strBuf = [];
+      for (var i = 0, j = textItems.length; i < j; i++){
+        sent_like = textItems[i].str;
+        rex = /[a-zA-Z]+-$/;
+        var end_with_dash = sent_like.match(rex);
+        if (end_with_dash){
+          sent_like = sent_like.replace(/-$/,'TTHHEEDDAASSHH')
+          // console.log('sent_like-DASH',sent_like);
+        }
+        strBuf.push(sent_like);
+      }
+      whole_page_str = strBuf.join(' ');
+      whole_page_str = whole_page_str.replace(/TTHHEEDDAASSHH /g,'')
+      pageContents[n] = whole_page_str
+      // console.log('strBuf of this page'+Number(n)+1,strBuf)
+      // console.log('whole_page_str of this page',whole_page_str)
+    })
+    // console.log('')
+  })
+  }
+  // var n = 1;
+  
+})
+
+</script>
+

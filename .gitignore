@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# /*
+# !/static
+# /static/*
+# !/static/*.html
+# !/static/*.js
+# !/static/*.css
+
+# !/templates
+
+
+
+
+
+# /static
+# !static/*.html
+# !static/*.js
+# !static/*.css
+# !*.css
+# !*.html
+# !word*
+# !chinese*
+# !empty*
