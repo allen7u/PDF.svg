@@ -1,7 +1,7 @@
 // var X_MAX = 960
 // var X_MAX = 1550
 // var X_MAX = 1220 //temp for System wide 125% enlargement
-var X_MAX = 900 //temp for System wide 125% enlargement
+var X_MAX = 900 //temp for iframe or 150% enlargement
 var x_mask_zero_width = undefined
 // var para = {x_max:1600,font_size_ten:10} #2021-6-2
 var para = {

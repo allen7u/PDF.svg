@@ -1446,20 +1446,27 @@ var promises_resolved = function (){
       //   words_dictionary_resolved()
       // })
 
-      $.getJSON( pdf_file_name.split('.pdf')[0] + '.json',function(j){
-        diagonal_kw_sum = j;
-        console.log('diagonal_kw_sum',j)
+      $.getJSON( 'json/'+pdf_file_name.split('.pdf')[0] + '.json',
+      function(j){
+        // alert(typeof j)        
+        console.log('j',j)
+        diagonal_kw_sum = j
+        // alert('diagonal_kw_sum',diagonal_kw_sum)
+        console.log('got diagonal_kw_sum',diagonal_kw_sum)
         // words_dictionary_resolved()
-      })
+      }
+      )
       .done(function() {
         // alert('getJSON request succeeded!') 
         r() 
+        options.mutual_enriched_json_existed = true
       })
       .fail(function() {
 
         // alert('getJSON request failed!')
         summary_gen({diagonal_kw_sum_:diagonal_kw_sum,summary_gen_resolved:r,
         dense_block_spanned_sents_idx_off:options.dense_block_spanned_sents_idx_off})
+        options.mutual_enriched_json_existed = false
 
       })
 
@@ -1470,7 +1477,21 @@ var promises_resolved = function (){
     // summary_gen({summary_gen_resolved:r})
 
   }).then((r,j)=>{
+
     return new Promise((r,j)=>{
+
+      // post diagonal_kw_sum json with mutual enrichment to server 
+      if (options.mutual_enriched_json_existed == false){
+      var diagonal_kw_sum_json = JSON.stringify( diagonal_kw_sum )
+      $.post('/',{
+        pdf_file_name : pdf_file_name,
+        diagonal_kw_sum_json : diagonal_kw_sum_json
+        },
+        function(data){
+          console.log(data)
+        })
+      }
+
       var mutual_unique_max_num = 0
       var mutual_unique_min_num = Infinity
       for(var kw_unit of diagonal_kw_sum){
@@ -1521,28 +1542,32 @@ var promises_resolved = function (){
 
       // console.log('diagonal_kw_sum to dl',diagonal_kw_sum)
       // console.log('diagonal_kw_sum_string to dl',JSON.stringify( diagonal_kw_sum ))
-      $.getJSON( pdf_file_name.split('.pdf')[0] + '.json',function(j){
-        diagonal_kw_sum = j;
-        console.log(pdf_file_name.split('.pdf')[0] + '.json found')
-        // words_dictionary_resolved()
-      })
-      .done(function() {
-        // alert('getJSON request succeeded!') 
-        // r() 
-      })
-      .fail(function() {
 
-      	blob = new Blob([ JSON.stringify( diagonal_kw_sum ) ], { type: 'text/plain' }),   
-      	anchor = document.createElement('a');
-      	anchor.download = pdf_file_name.split('.pdf')[0] + ".json";
-      	anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
-      	anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
-      	anchor.click();
-        // alert('getJSON request failed!')
-        // summary_gen({diagonal_kw_sum_:diagonal_kw_sum,summary_gen_resolved:r,
-        // dense_block_spanned_sents_idx_off:options.dense_block_spanned_sents_idx_off})
+      if(false){
 
-      })
+        $.getJSON( pdf_file_name.split('.pdf')[0] + '.json',function(j){
+          diagonal_kw_sum = j;
+          console.log(pdf_file_name.split('.pdf')[0] + '.json found')
+          // words_dictionary_resolved()
+        })
+        .done(function() {
+          // alert('getJSON request succeeded!') 
+          // r() 
+        })
+        .fail(function() {
+  
+          blob = new Blob([ JSON.stringify( diagonal_kw_sum ) ], { type: 'text/plain' }),   
+          anchor = document.createElement('a');
+          anchor.download = pdf_file_name.split('.pdf')[0] + ".json";
+          anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+          anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+          anchor.click();
+          // alert('getJSON request failed!')
+          // summary_gen({diagonal_kw_sum_:diagonal_kw_sum,summary_gen_resolved:r,
+          // dense_block_spanned_sents_idx_off:options.dense_block_spanned_sents_idx_off})
+  
+        })
+      }
 
     })  
 }

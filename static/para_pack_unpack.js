@@ -16,12 +16,14 @@
 
 var kw_list
 var url_from_input_file = ''
-var pdf_url = 'hachi.pdf'
-var pdf_url = 'hachi - pg_0001.pdf'
+// no longer supported here for dynamically injection by jinja2 in viewer_URL.html
+// var pdf_url = 'hachi.pdf'
+// var pdf_url = 'hachi - pg_0001.pdf'
 // var pdf_file_name
 var input_text = $('#lolz').value
 // var para_dict = {}
 var options = {}
+options.mutual_enriched_json_existed = undefined;
 
 
 // 
@@ -249,7 +251,7 @@ var BC_L_r = options['BC_L_r']
 var BC_S_r = options['BC_S_r']
 var BC_G_r = options['BC_G_r']
 var use_set_interval = options['use_set_interval']
-var pdf_file_name = decodeURI(options['pdf_file_name'])
+// var pdf_file_name = decodeURI(options['pdf_file_name']) //assigned in viewer_URL_template.html instead
 var start_sent_idx = options['start_sent_idx']
 var end_sent_idx = options['end_sent_idx']
 // var textarea_div_parent
