@@ -17,7 +17,8 @@
 # /*
 # !/static
 # /static/*
-# !/static/*.html
+/static/json
+/test/
 # !/static/*.js
 # !/static/*.css
 

@@ -15,20 +15,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Brand</title>
+
+    <title>PDF file list</title>
 
     <link rel="stylesheet" href="index.css">
-
 </head>
 
-<h1>I am iframe h1</h1>
-
 <body>
-    I am body
+   <!-- dynamically generate jinjia2 li from pdf file path list -->
+    <ul>
+        {% for pdf in file_path_list %}
+            <li>
+                <a href="get_file/{{ pdf }}">{{ pdf }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
 </body>
+
     <script>
         let div = document.createElement('div');
-        div.innerHTML = 'I am iframe h222';
+        div.innerHTML = 'I am inserted DIV by javascript';
         document.body.append(div)
     </script>
 

@@ -1446,7 +1446,7 @@ var promises_resolved = function (){
       //   words_dictionary_resolved()
       // })
 
-      $.getJSON( 'json/'+pdf_file_name.split('.pdf')[0] + '.json',
+      $.getJSON( 'static/json/'+pdf_file_name.split('.pdf')[0] + '.json',
       function(j){
         // alert(typeof j)        
         console.log('j',j)
@@ -1482,14 +1482,23 @@ var promises_resolved = function (){
 
       // post diagonal_kw_sum json with mutual enrichment to server 
       if (options.mutual_enriched_json_existed == false){
-      var diagonal_kw_sum_json = JSON.stringify( diagonal_kw_sum )
-      $.post('/',{
-        pdf_file_name : pdf_file_name,
-        diagonal_kw_sum_json : diagonal_kw_sum_json
-        },
-        function(data){
-          console.log(data)
-        })
+          // var data = {
+          //   pdf_file_name: pdf_file_name,
+          //   diagonal_kw_sum_json: JSON.stringify(diagonal_kw_sum)
+          // };
+          var data = {
+            pdf_file_name: pdf_file_name,
+            diagonal_kw_sum: diagonal_kw_sum
+          };
+          
+          $.ajax({
+            type: "POST",
+            url: "/",
+            data: JSON.stringify(data),  // Convert data to JSON string
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){ console.log(data); },
+          });
       }
 
       var mutual_unique_max_num = 0
@@ -1528,7 +1537,11 @@ var promises_resolved = function (){
     //   $.post('The_End')
     // })
 
-  }).then(function([display_unit_id_log_list, display_unit_kw_log_list, display_unit_unique_kw_log_list]){
+  }).then(function([
+    display_unit_id_log_list, 
+    display_unit_kw_log_list, 
+    display_unit_unique_kw_log_list,
+    display_unit_kw_and_mutual_enriched_terms_log_dict_list,]){
       $('unique_display_unit_num_tmp').html('unique_kw_num: '+display_unit_unique_kw_log_list.length)
       $('display_unit_num').html('display_unit_num: '+display_unit_kw_log_list.length)
       $.post('The_End')
@@ -1538,6 +1551,22 @@ var promises_resolved = function (){
       $('#n_gram_display_min_dense_hit_num_filter').bind('change',n_gram_display_min_dense_hits_filter)
       $('#n_gram_display_max_dense_hit_num_filter').bind('change',n_gram_display_max_dense_hits_filter)
 
+      // automatically download the display_unit_unique_kw_log_list as a txt file
+      // Create and download the text files
+      function download(filename, text) {
+        var blob = new Blob([text], {type: 'text/plain'});
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      pdf_file_name_ = pdf_file_name.split('.pdf')[0]
+      download(pdf_file_name_ + '_display_unit_kw_log_list.txt', JSON.stringify(display_unit_kw_log_list, null, 2));
+      download(pdf_file_name_ + '_display_unit_unique_kw_log_list.txt', JSON.stringify(display_unit_unique_kw_log_list, null, 2));
+      download(pdf_file_name_ + '_display_unit_kw_and_mutual_enriched_terms_log_dict_list.txt', JSON.stringify(display_unit_kw_and_mutual_enriched_terms_log_dict_list, null, 2));
       window.scrollBy(0, 600)
 
       // console.log('diagonal_kw_sum to dl',diagonal_kw_sum)

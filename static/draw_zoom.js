@@ -47,6 +47,7 @@ function draw_zoom({unit, sents_list, not_use_set_interval_temp = false,
   var display_unit_id_log_list = []  
   var display_unit_kw_log_list = []
   var display_unit_unique_kw_log_list = []
+  var display_unit_kw_and_mutual_enriched_terms_log_dict_list = []
   // var global_display_unit_counter=1
   var nested_n_gram_counter = 0
   var y_labels_list=[]
@@ -88,7 +89,8 @@ function draw_zoom({unit, sents_list, not_use_set_interval_temp = false,
       if(draw_resolved_ != null){
         draw_resolved_( [display_unit_id_log_list,
           display_unit_kw_log_list,
-          display_unit_unique_kw_log_list] )
+          display_unit_unique_kw_log_list,
+          display_unit_kw_and_mutual_enriched_terms_log_dict_list] )
       }
     }
 
@@ -271,6 +273,44 @@ function draw_zoom({unit, sents_list, not_use_set_interval_temp = false,
       return
       }
     }
+
+    hits = unit[j]['hits']
+    var sents_str_list = []
+    var dense_sents_str_list_ = []
+
+    // get original sentences from hits
+    for (var h of unit[j].hits){
+
+      try{
+        var sent_original = sents_list[h]['sent']
+      }catch(err){
+        var sent_original = sent_info_dict[h]['sent']
+      }
+
+      // append sent_original to sents_list
+      sents_str_list.push(sent_original)
+    }
+
+    // get original sentences from dense_hits
+    for (var h of unit[j].dense_hits){
+
+      try{
+        var sent_original = sents_list[h]['sent']
+      }catch(err){
+        var sent_original = sent_info_dict[h]['sent']
+      }
+
+      // append sent_original to sents_list
+      dense_sents_str_list_.push(sent_original)
+    }   
+
+    // join sents in sents_list 
+    var sents_str = sents_str_list.join('\n\n')
+
+    // join sents in dense_sents_list
+    var dense_sents_str = dense_sents_str_list_.join('\n\n')
+
+    
     // console.log('current_kw',current_kw)
     var all_hit_sents = []
     var all_hit_sents_idx = []
@@ -335,6 +375,70 @@ function draw_zoom({unit, sents_list, not_use_set_interval_temp = false,
       id:current_kw.split(' ').join('_'),
       class:'polyline_svg_parent svg_parent',
     })
+
+    // click to copy sents
+    var right_shift_ = 300 + x_max // + per_hit_rect_width
+    var copy_hits = polyline_svg_parent.rect(50, 50)
+    .attr({x:right_shift_,y:0,fill:'rgb(220,230,240)',class:'copy_hits'})
+    polyline_svg_parent.plain('copy hits').attr({x:right_shift_ + 10,y:25,class:' '}).size(7)//.fill(color)    
+    var copy_dense_hits = polyline_svg_parent.rect(50, 50)
+    .attr({x:right_shift_ + 60,y:0,fill:'rgb(220,230,240)',class:'copy_dense_hits'})
+    polyline_svg_parent.plain('copy dense hits').attr({x:right_shift_ + 60,y:25,class:' '}).size(7)//.fill(color)  
+    // var text_control = polyline_svg_parent.plain('control')
+    // text_control.attr({x:right_shift_,y:27,'font-size':para.font_size_ten})//.size(7)
+    // copy string to clipboard
+    function copyToClipboard(str) {
+      var el = document.createElement('textarea');
+      el.value = str;
+      el.setAttribute('readonly', '');
+      el.style = {position: 'absolute', left: '-9999px'};
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+    }    
+    // copy sents_str to clipboard on click 
+    copy_hits.on('click',function(){
+      copyToClipboard(sents_str)
+    })
+    copy_dense_hits.on('click',function(){
+      copyToClipboard(dense_sents_str)
+    })
+    // Blink function to toggle element opacity
+    function blink(element) {
+      var currentOpacity = element.opacity();
+      var targetOpacity = currentOpacity === 1 ? 0 : 1;
+      element.opacity(targetOpacity);
+    }
+    // Click event for copy_hits
+    copy_hits.on('click', function () {
+      copyToClipboard(sents_str);
+      blink(copy_hits);
+      setTimeout(() => {
+        blink(copy_hits);
+        setTimeout(() => {
+          blink(copy_hits);
+          setTimeout(() => {
+            blink(copy_hits);
+          }, 200);
+        }, 200);
+      }, 200);
+    });
+    // Click event for copy_dense_hits
+    copy_dense_hits.on('click', function () {
+      copyToClipboard(dense_sents_str);
+      blink(copy_dense_hits);
+      setTimeout(() => {
+        blink(copy_dense_hits);
+        setTimeout(() => {
+          blink(copy_dense_hits);
+          setTimeout(() => {
+            blink(copy_dense_hits);
+          }, 200);
+        }, 200);
+      }, 200);
+    });
+
     var kw_left_to_display_unit = polyline_svg_parent.plain().attr({x:kw_display_unit_text_info_right_shift + 50,y:30,class:'kw kw_left_to_display_unit'}).size(28)//.fill(color)    
     polyline_svg_kw = polyline_svg_parent.nested().attr({
       // id:current_kw.split(' ').join('_')+'_'+j,
@@ -408,7 +512,6 @@ function draw_zoom({unit, sents_list, not_use_set_interval_temp = false,
     }).attr({x:x_pos_dense_start,y:'65%'})//.size(25)
 
     // polyline_svg_kw.rect( kw_over_dense_hits_region.length()+20+5, '50%').attr({
-
     polyline_svg_kw.circle( 20 * unit[j]['normalized_mutual_unique_num'] ).attr({
       cx:x_pos_dense_start - 15,
       cy:22,fill:'rgba(139,139,139, 1)',class:'circle_over_dense_hits_region_background'})
@@ -443,6 +546,12 @@ function draw_zoom({unit, sents_list, not_use_set_interval_temp = false,
         }
       }
     }
+
+    display_unit_kw_and_mutual_enriched_terms_log_dict_list.push({
+      kw:kw_expanded,
+      mutual_enriched_terms_list:mutual_enriched_terms_list
+    })
+
     var mutual_enriched_terms_second_round_list = []
     // mutual_enriched_terms_string = mutual_enriched_terms_list.join(' | ')
     //to calc width needed for the text

@@ -21,6 +21,34 @@ from jinja2 import Template
 from icecream import ic
 from objprint import op
 import urllib
+import argparse
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--port', type=int, default=5000, help='port to run on')
+parser.add_argument('--debug', type=bool, default=False, help='debug mode')
+parser.add_argument('root', nargs='?', help='host to run on')
+args = parser.parse_args()
+
+if args.root == '.':
+    print('root', args.root)
+    # get absolute path of current directory
+    print(os.path.abspath(os.getcwd()))
+    path_list = [os.path.abspath(os.getcwd())]
+elif args.root == None:
+    path_list =[
+            "H:\Video - 字幕转PDF；SRT，",
+            'F:\Anaconda_使用\字幕转PDF；SRT，',
+            "F:\Anaconda_Play\Page Hub Server - Flask\pdf"
+        ]
+else:
+    print('root', args.root)
+    path_list = [ args.root ]
+
+# print('CWD: ')
+# print(os.getcwd())
+# os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# print('CWD now: ')
+# print(os.getcwd())
 
 app = Flask(__name__)
 
@@ -52,22 +80,20 @@ def render_pdf_list():
     # to return cached mutual enrichment json
     # not working yet, so $getJSON was used in browser which handle file openning job
     elif request.args.get('get_json'):
-        path = request.args.get('get_json')
-        ic(path)
+        file_name = request.args.get('get_json')
+        ic(file_name)
+        path = f'static/json/{file_name}.json'
         if os.path.isfile(path):
             with open(path, 'r', encoding='utf-8') as f:
                 print(f.read())
                 print(type(f.read()))
                 pass
                 return jsonify(json.loads(f.read()))
+        else:
+            print('No such json file yet')
 
     # otherwise, return a list of pdf files to choose
     else:
-        path_list =[
-            "H:\Video - 字幕转PDF；SRT，",
-            'F:\Anaconda_使用\字幕转PDF；SRT，',
-            "F:\Anaconda_Play\Page Hub Server - Flask\pdf"
-        ]
         file_path_list = []
 
         def walk(path):
@@ -115,15 +141,22 @@ def after_request(response):
 # post as form to carry along pdf file name info
 @app.route('/', methods=['POST'])
 def post_json():
-    pdf_file_name = request.form.get('pdf_file_name')
-    diagonal_kw_sum_json = request.form.get('diagonal_kw_sum_json')
-    print(request.form.get('diagonal_kw_sum_json'))
-    with open(f'static/json/{pdf_file_name}.json','w',encoding = 'utf-8' ) as f:
+    data = request.get_json()  # Get data sent as JSON
+    pdf_file_name = data.get('pdf_file_name')
+    diagonal_kw_sum = data.get('diagonal_kw_sum')
+    print(pdf_file_name + '.json POSTed')
+    dir_ = os.path.dirname(os.path.abspath(__file__))
+    print(dir_)
+    with open(f'{dir_}/static/json/{pdf_file_name}.json','w',encoding = 'utf-8' ) as f:
+        diagonal_kw_sum_json = json.dumps(diagonal_kw_sum, ensure_ascii=False)
         f.write(diagonal_kw_sum_json)
-    return diagonal_kw_sum_json
+    return diagonal_kw_sum_json  # Use jsonify to return JSON
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # run at ip
+    app.run(host='0.0.0.0', debug=True)
+    # app.run(debug=True)
+
 
 
 
