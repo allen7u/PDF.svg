@@ -17,7 +17,10 @@
 # /*
 # !/static
 # /static/*
-# !/static/*.html
+/static/json
+/aside
+/backups
+/__pycache__
 # !/static/*.js
 # !/static/*.css
 
