@@ -17,7 +17,7 @@
 # /*
 # !/static
 # /static/*
-/static/json
+/static/json/*.json
 /aside
 /backups
 /__pycache__
