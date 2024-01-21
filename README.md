@@ -54,4 +54,5 @@ For unknown reasons, the progress counting will progressively become faster.
 
 As you can see, my current skills and knowledge in software engineering, industry, and best practices are limited. If you have plans for business collaboration, intend to establish and maintain a series of open-source academic tools, or have some general suggestions, feel free to start a discussion or send me a direct message (D.M.).
 
-![image](https://github.com/allen7u/PDF.svg/assets/81082384/ea4af9fe-bbf3-4ae9-b7e5-ff8e0df4b7cc)
+![298366842-ea4af9fe-bbf3-4ae9-b7e5-ff8e0df4b7cc (1)](https://github.com/allen7u/PDF.svg/assets/81082384/df0e173e-a45d-4049-bc7d-8b20f9dc9ba8)
+
