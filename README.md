@@ -50,8 +50,8 @@ The result will be cached, so when you read that book another time, it won't go 
 For unknown reasons, the progress counting will progressively become faster. 
 
 
-### Improvement:
+### To-Do:
 
 As you can see, my current skills and knowledge in software engineering, industry, and best practices are limited. If you have plans for business collaboration, intend to establish and maintain a series of open-source academic tools, or have some general suggestions, feel free to start a discussion or send me a direct message (D.M.).
 
-![image](https://github.com/allen7u/PDF.svg/assets/81082384/a4eea588-a62a-40ff-9f44-b6769398a064)
+![image](https://github.com/allen7u/PDF.svg/assets/81082384/ea4af9fe-bbf3-4ae9-b7e5-ff8e0df4b7cc)
