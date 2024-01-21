@@ -18,7 +18,9 @@
 # !/static
 # /static/*
 /static/json
-/test/
+/aside
+/backups
+/__pycache__
 # !/static/*.js
 # !/static/*.css
 
