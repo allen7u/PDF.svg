@@ -9,6 +9,7 @@ Temporarily pin the sentence preview window with a click.
 
 Switch to the main text around the sentence of interest with another click.
 
+![titile-mini-frame-0 25area](https://github.com/allen7u/PDF.svg/assets/81082384/87ae6029-cf9e-4b03-81c8-bd4066327fb5)
 
 ### A simple walk-through:
 
